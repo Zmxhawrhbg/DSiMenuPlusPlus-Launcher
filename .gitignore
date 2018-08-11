@@ -1,0 +1,10 @@
+#hide 3ds build files (copied from twloader)
+*.3dsx
+*.bin
+*.cia
+*.dat
+*.elf
+*.smdh
+7zfile
+build
+pingo.exe
