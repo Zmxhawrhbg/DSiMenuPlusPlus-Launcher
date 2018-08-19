@@ -101,6 +101,12 @@ void LoadSettings(void) {
 	// TWL settings.
 	settings.twl.consoleModel = settingsini.GetInt("SRLOADER", "CONSOLE_MODEL", 0);
 	settings.twl.rainbowLed = settingsini.GetInt("CTR-SETTINGS", "NOTIFICATION_LED", 0);
+
+  // Autoboot settings
+
+	settings.autoboot.enabled = settingsini.GetInt("SRLOADER", "AUTOBOOT_ENABLED", 0);
+	settings.autoboot.delay = settingsini.GetInt("SRLOADER", "AUTOBOOT_DELAY", 10);
+
 }
 
 /**
@@ -121,6 +127,12 @@ void SaveSettings(void) {
 	// TWL settings.
 	settingsini.SetInt("SRLOADER", "CONSOLE_MODEL", settings.twl.consoleModel);
 	settingsini.SetInt("CTR-SETTINGS", "NOTIFICATION_LED", settings.twl.rainbowLed);
+
+  // Autoboot settings
+
+	settingsini.SetInt("SRLOADER", "AUTOBOOT_ENABLED", settings.autoboot.enabled);
+  settingsini.SetInt("SRLOADER", "AUTOBOOT_DELAY", settings.autoboot.delay);
+
 	settingsini.SaveIniFile("sdmc:/_nds/dsimenuplusplus/settings.ini");
 
 	bootstrapini.SetInt("NDS-BOOTSTRAP", "CONSOLE_MODEL", settings.twl.consoleModel);

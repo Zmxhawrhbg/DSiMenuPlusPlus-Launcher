@@ -22,6 +22,8 @@ extern size_t hstouchtex;
 extern size_t hstex;
 extern size_t wipetex;
 
+extern size_t shouldertex;
+
 // Colors
 #define TRANSPARENT RGBA8(0, 0, 0, 0)
 

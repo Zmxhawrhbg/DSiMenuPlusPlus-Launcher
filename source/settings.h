@@ -36,6 +36,12 @@ typedef struct _Settings_t {
 		int consoleModel;
 		int rainbowLed;	// 0 = None, 1 = Green, 2 = Rainbow
 	} twl;
+
+  struct {
+    int enabled;
+		int delay;
+	} autoboot;
+
 } Settings_t;
 extern Settings_t settings;
 

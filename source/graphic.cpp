@@ -55,3 +55,5 @@ size_t hstexttex = 16;
 size_t hstouchtex = 17;
 size_t hstex = 18;
 size_t wipetex = 19;
+
+size_t shouldertex = 20;
