@@ -51,6 +51,18 @@ struct {
 };
 
 
+struct {
+	const char *line1;
+	const char *line2;
+} button_descriptions[] = {
+	{"Press  to reboot into DSiMenu++.", ""},
+	{"Press  to reboot into the ROM", "last-launched in DSiMenu++."},
+	{"Show DS/DSi boot screen", "before DSiMenu++ appears."},
+	{"Set a color to glow in", "the Notification LED."},
+	{"Automatically boot into DSiMenu++", ""},
+	{"Delay for DSIMenu++ autoboot", "Use select to cancel boot"},
+};
+
 void screenoff()
 {
     gspLcdInit();\
@@ -214,6 +226,14 @@ int main()
 				break;
 		}
 
+		const char *button_titles[] = {
+			"Start DSiMenu++",
+			"Start last-ran ROM",
+			"Boot screen",
+			"Notification LED",
+			"Autoboot",
+			"Autoboot Delay",
+		};
 		const char *button_desc[] = {
 			NULL,
 			NULL,
@@ -221,20 +241,6 @@ int main()
 			rainbowledvaluetext,
 			autobootenabledtext,
 			autobootdelaytext,
-		};
-
-		struct
-		{
-			const char *title;
-			const char *line1;
-			const char *line2;
-		} button_descriptions[] = {
-				{"Start DSiMenu++", "Press  to reboot into DSiMenu++.", ""},
-				{"Start last-ran ROM", "Press  to reboot into the ROM", "last-launched in DSiMenu++."},
-				{"Boot screen", "Show DS/DSi boot screen", "before DSiMenu++ appears."},
-				{"Notification LED", "Set a color to glow on", "the Notification LED."},
-				{"Autoboot", "Automatically boot into DSiMenu++", ""},
-				{"Autoboot Delay", "Delay for DSIMenu++ autoboot", "(Use select to cancel boot)"},
 		};
 
 		const char *page_titles[] = {
@@ -253,18 +259,10 @@ int main()
 			else pp2d_draw_on(GFX_TOP, (gfx3dSide_t)topfb);
 			pp2d_draw_texture(topbgtex, 0, 0);
 
+			pp2d_draw_text(8, 184, 0.60, 0.60f, WHITE, button_descriptions[menuSelection].line1);
+			pp2d_draw_text(8, 198, 0.60, 0.60f, WHITE, button_descriptions[menuSelection].line2);
 
-			pp2d_draw_text(60, 119, 0.60, 0.60f, WHITE, button_descriptions[menuSelection].line1);
-			pp2d_draw_text(60, 133, 0.60, 0.60f, WHITE, button_descriptions[menuSelection].line2);
-
-			// draw shoulders
-			pp2d_draw_texture_part(shouldertex, 0, LshoulderYpos, 0, 0, 72, 20);
-			pp2d_draw_texture_part(shouldertex, 328, RshoulderYpos, 0, 20, 73, 20);
-
-			pp2d_draw_text(21, LshoulderYpos + 4, 0.50, 0.50, BLACK, "Back");
-			pp2d_draw_text(330, RshoulderYpos + 4, 0.50, 0.50, BLACK, "Forward");
-
-			pp2d_draw_text(260, 75, 0.50, 0.50, WHITE, launcher_vertext);
+			pp2d_draw_text(336, 222, 0.50, 0.50, WHITE, launcher_vertext);
 			if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 400, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
 
 		}
@@ -275,6 +273,13 @@ int main()
 		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
 		pp2d_draw_texture(subbgtex, 0, 0);
 		pp2d_draw_text(2, 2, 0.75, 0.75, WHITE, page_titles[menuPage]);
+
+		// draw shoulders
+		pp2d_draw_texture_part(shouldertex, 0, LshoulderYpos, 0, 0, 72, 20);
+		pp2d_draw_texture_part(shouldertex, 248, RshoulderYpos, 0, 20, 73, 20);
+
+		pp2d_draw_text(17, LshoulderYpos + 4, 0.50, 0.50, BLACK, "Previous");
+		pp2d_draw_text(252, RshoulderYpos + 4, 0.50, 0.50, BLACK, "Next");
 
 		// Draw buttons
 
@@ -299,14 +304,14 @@ int main()
 				int y = buttons[i].y + ((34 - h) / 2);
 				int w = 0;
 				int x = ((2 - w) / 2) + buttons[i].x;
-				pp2d_draw_text(x, y, 0.50, 0.50, BLACK, button_descriptions[i].title);
+				pp2d_draw_text(x, y, 0.50, 0.50, BLACK, button_titles[i]);
 
 				y += 16;
 
 				// Draw the value.
 				w = 0;
 				x = ((2 - w) / 2) + buttons[i].x;
-				pp2d_draw_text(x, y, 0.45, 0.45, BLACK, button_desc[i]);
+				pp2d_draw_text(x, y, 0.50, 0.50, BLACK, button_desc[i]);
 			}
 		}
 		const wchar_t *home_text = TR(STR_RETURN_TO_HOME_MENU);
